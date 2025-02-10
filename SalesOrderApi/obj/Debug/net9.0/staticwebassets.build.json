@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "gsspuc2MOY9JfYvW5YybLmQfpriRUjR77q6QSMYtjeo=",
+  "Source": "SalesOrderApi",
+  "BasePath": "_content/SalesOrderApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
