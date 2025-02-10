@@ -18,10 +18,7 @@ Angular 17
 ```bash
   dotnet run
 ```
-4. Salir de SalesOrderApi
-```bash
-   cd..
-```
+4. Abrir otra ventana de consola
 5. Navegar a sales-date-prediction
 ```bash
    cd sales-date-prediction
@@ -36,5 +33,12 @@ Angular 17
 ```
 ## Uso
 1. Abrir el navegador e ir a `http://localhost:4200`
-2. 
-3. d
+
+
+# Graficando con D3
+1. Abrir el enlace para visualizar el código
+   https://codepen.io/jvpinzon/pen/GgRKpKB
+2. Ingresar los números deseados separados por una coma
+3. Dar clic en Update Data
+4. Visualizar la gráfica
+
