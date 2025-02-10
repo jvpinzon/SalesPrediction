@@ -1,0 +1,213 @@
+<div class="container">
+  <h1>Customers</h1>
+  <input type="text" id="valor">
+  <input type="submit" value="Customer Name">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Customer Name</th>
+        <th>Last Order Date</th>
+        <th>Next Predicted Order</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customers of customers">
+        <td>{{ customers.Customer_Name }}</td>
+        <td>{{ customers.Last_Order_Date}}</td>
+        <td>{{ customers.Next_Predicted_Order}}</td>
+        <th>
+          <!-- <button class="button button1" (click)="openOrdersModal(customers.customerId, ordersModal)">
+            VIEW ORDERS
+          </button> -->
+        </th>
+        <th>
+          <button class="button button2">
+            NEXT ORDER
+          </button>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #ordersModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Customer AHPOP - Orders</h4>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')">&times;</button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="orders.length === 0">
+      No hay órdenes disponibles para este cliente.
+    </div>
+    <table *ngIf="orders.length > 0" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Required Date</th>
+          <th>Shipped Date</th>
+          <th>Ship Name</th>
+          <th>Ship Address</th>
+          <th>Ship City</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <!-- <td>{{ order.orderId }}</td> -->
+          <td>{{ order.Requireddate}}</td>
+          <td>{{ order.Shippeddate}}</td>
+          <td>{{ order.Shipname}}</td>
+          <td>{{ order.Shipaddress}}</td>
+          <td>{{ order.Shipcity}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="button button1" (click)="modal.dismiss('Close click')">Cerrar</button>
+  </div>
+</ng-template>
+
+<ng-template #orderModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Customer AHPOP - New Order</h4>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')">&times;</button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+      <div slot="header">
+        <label>Order</label>
+      </div>
+
+      <div class="form-group">
+        <form [formGroup]="employeeForm">
+          <div class="form-group">
+            <select id="employee" formControlName="empid" class="form-control">
+              <option value="">Employee</option>
+              <option *ngFor="let employee of employees" [value]="employee.empid">{{ employee.FullName }}</option>
+            </select>
+            <div *ngIf="orderForm.get('employee')?.invalid && orderForm.get('employee')?.touched" class="text-danger">
+              <small>Employee is obligatory</small>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="form-group">
+        <form [formGroup]="shipperForm">
+          <div class="form-group">
+            <select id="shipper" formControlName="Shipperid" class="form-control">
+              <option value="">Shipper</option>
+              <option *ngFor="let shipper of shippers" [value]="shipper.Shipperid">{{ shipper.Companyname }}</option>
+            </select>
+            <div *ngIf="orderForm.get('shipper')?.invalid && orderForm.get('shipper')?.touched" class="text-danger">
+              <small>Shipper is obligatory</small>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="form-group">
+        <input type="text" id="name" formControlName="name" class="form-control" placeholder="Ship Name">
+        <div *ngIf="orderForm.get('name')?.invalid && orderForm.get('name')?.touched" class="text-danger">
+          <small>Ship Name is obligatory</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" id="address" formControlName="address" class="form-control" placeholder="Ship Address">
+        <div *ngIf="orderForm.get('address')?.invalid && orderForm.get('address')?.touched" class="text-danger">
+          <small>Ship Address is obligatory</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" id="city" formControlName="city" class="form-control" placeholder="Ship City">
+        <div *ngIf="orderForm.get('city')?.invalid && orderForm.get('city')?.touched" class="text-danger">
+          <small>Ship City is obligatory</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" id="country" formControlName="country" class="form-control" placeholder="Ship Country">
+        <div *ngIf="orderForm.get('country')?.invalid && orderForm.get('country')?.touched" class="text-danger">
+          <small>Ship Country is obligatory</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="date" id="Odate" formControlName="Odate" class="form-control" placeholder="Order Date">
+        <div *ngIf="orderForm.get('Odate')?.invalid && orderForm.get('Odate')?.touched" class="text-danger">
+          <small>Order Date is obligatory</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="date" id="Rdate" formControlName="Rdate" class="form-control" placeholder="Required Date">
+        <div *ngIf="orderForm.get('Rdate')?.invalid && orderForm.get('Rdate')?.touched" class="text-danger">
+          <small>Required Date is obligatory</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="Sdate">Shipped Date</label>
+        <input type="date" id="Sdate" formControlName="Sdate" class="form-control" placeholder="Shipped Date">
+        <div *ngIf="orderForm.get('Sdate')?.invalid && orderForm.get('Sdate')?.touched" class="text-danger">
+          <small>Shipped Date is obligatory</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="number" id="Freight" formControlName="Freight" class="form-control" placeholder="Freight" required
+          min="1">$
+        <div *ngIf="orderForm.get('Freight')?.invalid && orderForm.get('Freight')?.touched" class="text-danger">
+          <small>Freight is obligatory</small>
+        </div>
+      </div>
+
+      <div slot="header">
+        <label>Order Details</label>
+      </div>
+
+      <div class="form-group">
+        <form [formGroup]="productForm">
+          .,<div class="form-group">
+            <select formControlName="productId" class="form-control" placeholder="Product">
+              <option value="">Product</option>
+              <option *ngFor="let product of products">{{ product.productname }}</option>
+            </select>
+            <div *ngIf="orderForm.get('product')?.invalid && orderForm.get('product')?.touched" class="text-danger">
+              <small>Product is obligatory</small>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="form-group">
+        <input type="number" id="Price" formControlName="Price" class="form-control" placeholder="Unit Price">$
+        <div *ngIf="orderForm.get('Price')?.invalid && orderForm.get('Price')?.touched" class="text-danger">
+          <small>Unite Price is obligatory</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="number" id="Quantity" formControlName="Quantity" class="form-control" placeholder="Quantity"
+          required min="1">
+        <div *ngIf="orderForm.get('Quantity')?.invalid && orderForm.get('Quantity')?.touched" class="text-danger">
+          <small>Quantity is obligatory</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="number" id="Discount" formControlName="Discount" class="form-control" placeholder="Discount">
+        <div *ngIf="orderForm.get('Discount')?.invalid && orderForm.get('Discount')?.touched" class="text-danger">
+          <small>Discount is obligatory</small>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="orderForm.invalid">Save</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Close click')">Close</button>
+  </div>
+</ng-template>
